@@ -1,0 +1,133 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  height: 56px;
+  background: #fff;
+  border-bottom: 1px solid #e5e5e5;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.header__left {
+  display: flex;
+  align-items: center;
+  min-width: 200px;
+}
+
+.header__menu {
+  background: none;
+  border: none;
+  padding: 8px;
+  margin-right: 16px;
+  cursor: pointer;
+  color: #606060;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header__menu:hover {
+  background: #f2f2f2;
+  border-radius: 50%;
+}
+
+.header__logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.header__logo-text {
+  margin-left: 4px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #0f0f0f;
+}
+
+.header__center {
+  flex: 1;
+  max-width: 640px;
+  margin: 0 40px;
+}
+
+.header__search {
+  display: flex;
+  width: 100%;
+}
+
+.header__search-input {
+  flex: 1;
+  padding: 0 16px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-right: none;
+  border-radius: 40px 0 0 40px;
+  height: 40px;
+  outline: none;
+}
+
+.header__search-input:focus {
+  border-color: #1c62b9;
+}
+
+.header__search-button {
+  width: 64px;
+  background: #f8f8f8;
+  border: 1px solid #ccc;
+  border-left: none;
+  border-radius: 0 40px 40px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header__search-button:hover {
+  background: #f0f0f0;
+}
+
+.header__right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 200px;
+}
+
+.header__signin-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid #065fd4;
+  border-radius: 20px;
+  color: #065fd4;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.header__signin-btn:hover {
+  background: #def1ff;
+}
+
+@media (max-width: 768px) {
+  .header__logo-text {
+    display: none;
+  }
+
+  .header__center {
+    margin: 0 16px;
+  }
+
+  .header__username {
+    display: none;
+  }
+}

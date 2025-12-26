@@ -1,0 +1,36 @@
+.home {
+  flex: 1;
+  background-color: #f9f9f9;
+}
+
+.loading {
+  padding: 40px;
+  text-align: center;
+  font-size: 18px;
+  color: #606060;
+}
+
+.no-videos {
+  padding: 40px;
+  text-align: center;
+  font-size: 18px;
+  color: #606060;
+}
+
+.home__videos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .home__videos {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    padding: 10px;
+  }
+
+  .filter-buttons {
+    padding: 12px;
+  }
+}

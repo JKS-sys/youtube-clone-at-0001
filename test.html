@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>YouTube Clone API Test</title>
+  </head>
+  <body>
+    <h1>YouTube Clone API Test</h1>
+    <div id="results"></div>
+
+    <script>
+      async function testAPI() {
+        const results = document.getElementById("results");
+
+        try {
+          // Test 1: Health check
+          const healthRes = await fetch("http://localhost:5000/api/health");
+          const healthData = await healthRes.json();
+          results.innerHTML += `<h2>Health: ${healthData.status}</h2>`;
+
+          // Test 2: Get all videos
+          const videosRes = await fetch("http://localhost:5000/api/videos");
+          const videos = await videosRes.json();
+
+          results.innerHTML += `<h2>Videos (${videos.length} found):</h2>`;
+          videos.slice(0, 5).forEach((video) => {
+            results.innerHTML += `
+                        <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+                            <h3>${video.title}</h3>
+                            <p><strong>Channel:</strong> ${
+                              video.channelId?.channelName || "N/A"
+                            }</p>
+                            <p><strong>Views:</strong> ${video.views}</p>
+                            <p><strong>Category:</strong> ${video.category}</p>
+                            <p><strong>ID:</strong> ${video._id}</p>
+                            <a href="http://localhost:3000/video/${
+                              video._id
+                            }" target="_blank">Watch Video</a>
+                        </div>
+                    `;
+          });
+        } catch (error) {
+          results.innerHTML = `<p style="color:red">Error: ${error.message}</p>`;
+        }
+      }
+
+      testAPI();
+    </script>
+  </body>
+</html>

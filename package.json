@@ -1,0 +1,20 @@
+{
+  "name": "youtube-clone-mern",
+  "version": "1.0.0",
+  "description": "YouTube Clone with MERN Stack",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "seed": "cd backend && node seed.js",
+    "seed:simple": "cd backend && node seed-simple.js",
+    "start": "cd backend && node server.js",
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "build": "npm run build:frontend",
+    "build:frontend": "cd frontend && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

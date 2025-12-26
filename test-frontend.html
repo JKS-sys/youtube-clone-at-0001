@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>API Test</title>
+    <style>
+      body {
+        font-family: Arial;
+        padding: 20px;
+      }
+      .success {
+        color: green;
+      }
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>YouTube Clone API Test</h1>
+    <div id="status"></div>
+    <script>
+      async function testAPI() {
+        const status = document.getElementById("status");
+
+        try {
+          // Test backend
+          const healthRes = await fetch("http://localhost:5001/api/health");
+          const healthData = await healthRes.json();
+          status.innerHTML += `<p class="success">✅ Backend: ${healthData.status}</p>`;
+
+          // Test videos
+          const videosRes = await fetch("http://localhost:5001/api/videos");
+          const videos = await videosRes.json();
+          status.innerHTML += `<p class="success">✅ Videos: ${videos.length} found</p>`;
+
+          // Display first video
+          if (videos.length > 0) {
+            status.innerHTML += `<h3>Sample Video:</h3>`;
+            status.innerHTML += `<p><strong>Title:</strong> ${videos[0].title}</p>`;
+            status.innerHTML += `<p><strong>Channel:</strong> ${videos[0].channelId.channelName}</p>`;
+            status.innerHTML += `<p><strong>Views:</strong> ${videos[0].views}</p>`;
+          }
+        } catch (error) {
+          status.innerHTML = `<p class="error">❌ Error: ${error.message}</p>`;
+        }
+      }
+
+      testAPI();
+    </script>
+  </body>
+</html>
