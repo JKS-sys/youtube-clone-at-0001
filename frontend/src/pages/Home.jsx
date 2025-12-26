@@ -21,21 +21,35 @@ const Home = () => {
   ];
 
   useEffect(() => {
-    fetchVideos();
-  }, [searchTerm, selectedCategory]);
+    const fetchVideos = async () => {
+      try {
+        setLoading(true);
+        const params = new URLSearchParams(window.location.search);
+        const searchParam = params.get("search") || "";
+        const categoryParam =
+          selectedCategory !== "All" ? selectedCategory : "";
 
-  const fetchVideos = async () => {
-    try {
-      setLoading(true);
-      const response = await videoAPI.getVideos(searchTerm, selectedCategory);
-      console.log("Videos fetched:", response.data.length);
-      setVideos(response.data);
-    } catch (error) {
-      console.error("Error fetching videos:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+        const response = await videoAPI.getVideos(searchParam, categoryParam);
+        setVideos(response.data);
+      } catch (error) {
+        console.error("Error fetching videos:", error);
+        setError("Failed to load videos. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchVideos();
+
+    // Listen for search updates from header
+    const handleSearchUpdate = () => {
+      fetchVideos();
+    };
+
+    window.addEventListener("searchUpdated", handleSearchUpdate);
+    return () =>
+      window.removeEventListener("searchUpdated", handleSearchUpdate);
+  }, [selectedCategory, window.location.search]);
 
   return (
     <div className="home">

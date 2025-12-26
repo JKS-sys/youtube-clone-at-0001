@@ -32,8 +32,9 @@ const Auth = () => {
       if (isLogin) {
         // Login
         const response = await authAPI.login(formData.email, formData.password);
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("user", JSON.stringify(response.data.user));
+        const { token, ...userData } = response.data;
+        localStorage.setItem("user", JSON.stringify(userData));
+
         alert("Login successful!");
         navigate("/");
         window.location.reload(); // Refresh to update header
@@ -47,8 +48,8 @@ const Auth = () => {
           formData.email,
           formData.password
         );
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("user", JSON.stringify(response.data.user));
+        const { token, ...userData } = response.data;
+        localStorage.setItem("user", JSON.stringify(userData));
         alert("Registration successful!");
         navigate("/");
         window.location.reload();

@@ -15,17 +15,25 @@ const Header = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if user is logged in
-    const userData = localStorage.getItem("user");
-    if (userData) {
-      setUser(JSON.parse(userData));
+    try {
+      const userData = localStorage.getItem("user");
+      if (userData && userData !== "undefined") {
+        setUser(JSON.parse(userData));
+      }
+    } catch (error) {
+      console.error("Error parsing user data:", error);
+      // Clear invalid data
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
     }
   }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      navigate(`/?search=${searchQuery}`);
+      navigate(`/?search=${encodeURIComponent(searchQuery.trim())}`);
+      // Refresh the video list
+      window.dispatchEvent(new Event("searchUpdated"));
     }
   };
 
@@ -67,6 +75,17 @@ const Header = () => {
       <div className="header__right">
         {user ? (
           <div className="header__user-info">
+            <img
+              src={user.avatar}
+              alt={user.username}
+              className="header__user-avatar"
+              style={{
+                width: "32px",
+                height: "32px",
+                borderRadius: "50%",
+                border: "2px solid #065fd4",
+              }}
+            />
             <span className="header__username">Hi, {user.username}</span>
             <button onClick={handleLogout} className="header__logout-btn">
               <FaSignOutAlt />

@@ -14,17 +14,13 @@ dotenv.config();
 
 const app = express();
 
-// ==== FIX 1: MOVE CORS MIDDLEWARE TO THE TOP ====
-// This must come BEFORE your routes
+// CORS middleware
 app.use(
   cors({
     origin: "http://localhost:3000", // Your frontend URL
     credentials: true,
   })
 );
-
-// ==== FIX 2: REMOVE DUPLICATE ROUTE DECLARATION ====
-// You had app.use("/api/auth", authRoutes) twice - remove one
 
 // Other middleware
 app.use(express.json());
@@ -63,7 +59,7 @@ const connectDB = async () => {
 // Connect to MongoDB
 connectDB();
 
-const PORT = process.env.PORT || 5001; // Changed to 5001 to match your frontend
+const PORT = process.env.PORT || 5001;
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
